@@ -1,1 +1,10 @@
-{"sub": "W1","if":  "W2", "else": "W3", "for": "W4", "while": "W5"}
+{
+    "sub": "W1",
+    "if": "W2",
+    "else": "W3",
+    "for": "W4",
+    "while": "W5",
+    "then": "W6",
+    "goto": "W7",
+    "return": "W8"
+}

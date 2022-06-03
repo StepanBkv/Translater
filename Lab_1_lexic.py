@@ -1,13 +1,13 @@
 import json
 import re
+from os import path
 
-# Служебные слова
 with open("W.json", "r") as read_file:
     W = json.load(read_file)
-# Операции
+
 with open("O.json", "r") as read_file:
     O = json.load(read_file)
-# Разделители
+
 with open("R.json", "r") as read_file:
     R = json.load(read_file)
 
@@ -81,9 +81,9 @@ with open(input_file, "r") as read_file:
 
 OUTPUT = []
 
-I = {}  # индетификаторы
-N = {}  # числовые константы
-C = {}  # символьные константы
+I = {}
+N = {}
+C = {}
 
 STATE = "START"
 
@@ -91,11 +91,14 @@ accumulator = ""
 for i in range(len(INPUT)):
     if STATE == "ERROR":
         break
+
     sym = INPUT[i]
+
     # операция
     if STATE == "OPERATION":
         STATE = "START"
-        if not sym in O.keys():
+        if not accumulator + sym in O.keys():
+
             OUTPUT.append(O[accumulator])
             accumulator = ""
         else:
@@ -160,14 +163,15 @@ for i in range(len(INPUT)):
                 I[accumulator] = f"I{len(I) + 1}"
                 OUTPUT.append(I[accumulator])
 
+            accumulator = ""
+
             if IS_SEPARATOR(sym):
                 STATE = "SEPARATOR"
             if IS_OPERATION(sym):
                 STATE = "OPERATION"
+                accumulator = sym
             if IS_COMMENTARY(sym):
                 STATE = "COMMENTARY"
-
-            accumulator = ""
         else:
             STATE = "ERROR"
             continue
@@ -187,14 +191,15 @@ for i in range(len(INPUT)):
                 N[accumulator] = f"N{len(N) + 1}"
                 OUTPUT.append(N[accumulator])
 
+            accumulator = ""
+
             if IS_SEPARATOR(sym):
                 STATE = "SEPARATOR"
             if IS_OPERATION(sym):
                 STATE = "OPERATION"
+                accumulator = sym
             if IS_COMMENTARY(sym):
                 STATE = "COMMENTARY"
-
-            accumulator = ""
         else:
             STATE = "ERROR"
             continue
@@ -221,17 +226,18 @@ for i in range(len(INPUT)):
             if accumulator in N.keys():
                 OUTPUT.append(N[accumulator])
             else:
-                N[accumulator] = f"N{len(N) + 1}"
+                N[accumulator] = f"I{len(N) + 1}"
                 OUTPUT.append(N[accumulator])
+
+            accumulator = ""
 
             if IS_SEPARATOR(sym):
                 STATE = "SEPARATOR"
             if IS_OPERATION(sym):
                 STATE = "OPERATION"
+                accumulator = sym
             if IS_COMMENTARY(sym):
                 STATE = "COMMENTARY"
-
-            accumulator = ""
         else:
             STATE = "ERROR"
             continue
@@ -264,24 +270,25 @@ for i in range(len(INPUT)):
             if accumulator in N.keys():
                 OUTPUT.append(N[accumulator])
             else:
-                N[accumulator] = f"N{len(N) + 1}"
+                N[accumulator] = f"I{len(N) + 1}"
                 OUTPUT.append(N[accumulator])
+
+            accumulator = ""
 
             if IS_SEPARATOR(sym):
                 STATE = "SEPARATOR"
             if IS_OPERATION(sym):
                 STATE = "OPERATION"
+                accumulator = sym
             if IS_COMMENTARY(sym):
                 STATE = "COMMENTARY"
-
-            accumulator = ""
         else:
             STATE = "ERROR"
             continue
 
     # разделитель
     if STATE == "SEPARATOR":
-        if not IS_SPACE(sym):
+        if not IS_SPACE(sym) and not IS_END(sym):
             OUTPUT.append(R[sym])
         STATE = "START"
         accumulator = ""
@@ -322,14 +329,16 @@ for i in range(len(INPUT)):
             accumulator += sym
         continue
 
-with open(output_dir + "/result.txt", "w") as write_file:
+name = path.basename(input_file)
+name = path.splitext(name)[0]
+with open(output_dir + name + "_lex.txt", "w") as write_file:
     write_file.write(" ".join(OUTPUT))
 
-with open(output_dir + "/N.json", "w") as write_file:
+with open(output_dir + "N.json", "w") as write_file:
     json.dump(N, write_file)
 
-with open(output_dir + "/C.json", "w") as write_file:
+with open(output_dir + "C.json", "w") as write_file:
     json.dump(C, write_file)
 
-with open(output_dir + "/I.json", "w") as write_file:
+with open(output_dir + "I.json", "w") as write_file:
     json.dump(I, write_file)

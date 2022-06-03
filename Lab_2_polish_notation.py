@@ -1,5 +1,4 @@
 import json
-import re
 from os import path
 
 with open("settings.txt", "r", encoding="utf-8") as read_file:

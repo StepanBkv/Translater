@@ -10,11 +10,11 @@ sub main {
     $a = 5;
     $b = 2;
 
-    print("The sum of the numbers a and b is ");
+    print("Сумма чисел a и b равна ");
     print summa($a, $b);
     print("\n");
 
-    print("The difference between the numbers a and b is ");
+    print("Разность чисел a и b равна ");
     print difference($a, $b);
 }
 

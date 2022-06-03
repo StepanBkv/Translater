@@ -4,22 +4,22 @@ from os import path
 with open("settings.txt", "r", encoding="utf-8") as read_file:
     input_file = read_file.readline().strip()
     output_dir = read_file.readline().strip()
-# индетефикаторы
+
 with open(output_dir + "I.json", "r", encoding="utf-8") as read_file:
     I = json.load(read_file)
-# символьные константы
+
 with open(output_dir + "C.json", "r", encoding="utf-8") as read_file:
     C = json.load(read_file)
-# числовые константы
+
 with open(output_dir + "N.json", "r", encoding="utf-8") as read_file:
     N = json.load(read_file)
-#служабные слова
+
 with open("W.json", "r", encoding="utf-8") as read_file:
     W = json.load(read_file)
-# операторы
+
 with open("O.json", "r", encoding="utf-8") as read_file:
     O = json.load(read_file)
-# разделители
+
 with open("R.json", "r", encoding="utf-8") as read_file:
     R = json.load(read_file)
 
