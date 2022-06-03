@@ -1,0 +1,14 @@
+sub main {
+    @arr = (0, 1, 2, 3, 4);
+
+    for($i = 0; $i < 5; $i++) {
+        print ($arr[$i]);
+        if($arr[$i] % 2 == 0) {
+            print(" is even\n");
+        } else {
+            print(" is odd\n");
+        }
+    }
+}
+
+&main();

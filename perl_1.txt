@@ -1,0 +1,21 @@
+sub summa {
+    return $_[0]+$_[1]
+}
+
+sub difference {
+    return $_[0]-$_[1]
+}
+
+sub main {
+    $a = 5;
+    $b = 2;
+
+    print("The sum of the numbers a and b is ");
+    print summa($a, $b);
+    print("\n");
+
+    print("The difference between the numbers a and b is ");
+    print difference($a, $b);
+}
+
+&main();

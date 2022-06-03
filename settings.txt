@@ -1,0 +1,2 @@
+perl_1.txt
+/home/jframe/PycharmProjects/translater/
